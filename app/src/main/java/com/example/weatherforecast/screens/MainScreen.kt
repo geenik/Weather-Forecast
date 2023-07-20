@@ -1,6 +1,5 @@
 package com.example.weatherforecast.screens
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -35,6 +34,7 @@ import coil.compose.rememberImagePainter
 import com.example.weatherforecast.data.DataOrException
 import com.example.weatherforecast.models.Weather
 import com.example.weatherforecast.models.WeatherItem
+import com.example.weatherforecast.navigation.WeatherScreens
 import com.example.weatherforecast.utils.formatDate
 import com.example.weatherforecast.utils.formatDecimals
 import com.example.weatherforecast.widgets.HumidityWindPressureRow
@@ -45,11 +45,11 @@ import java.lang.Exception
 
 
 @Composable
-fun MainScreen(navController: NavController, viewModal: viewModel) {
+fun MainScreen(navController: NavController, viewModal: viewModel, city: String?) {
     val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
         initialValue = DataOrException(loading = true)
     ) {
-        value = viewModal.getWeather("Delhi")
+        value = viewModal.getWeather("$city")
     }.value
     if (weatherData.loading == true) {
         CircularProgressIndicator()
@@ -66,7 +66,10 @@ fun MainScaffold(navController: NavController, weather: Weather) {
             WeatherAppBar(
                 title = weather.city.name + " ,${weather.city.country}",
                 navController = navController,
-                icon = Icons.Default.ArrowBack
+                icon = Icons.Default.ArrowBack,
+                onAddActionClicked = {
+                    navController.navigate(WeatherScreens.SearchScreen.name)
+                }
             )
         }
     }) {
@@ -132,7 +135,7 @@ fun MainContent(data: Weather, modifier: Modifier) {
 
 @Composable
 fun WeatherStateImage(imageurl: String) {
- Image(painter = rememberImagePainter(imageurl) ,
+ Image(painter = rememberImagePainter(imageurl),
      contentDescription = "Icon Image",
      modifier = Modifier.size(80.dp)
      )
