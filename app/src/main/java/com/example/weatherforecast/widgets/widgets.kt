@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.example.weatherforecast.R
 import com.example.weatherforecast.models.WeatherItem
-import com.example.weatherforecast.screens.WeatherStateImage
 import com.example.weatherforecast.utils.formatDate
 import com.example.weatherforecast.utils.formatDateTime
 import com.example.weatherforecast.utils.formatDecimals
@@ -86,7 +85,7 @@ fun WeatherDetailRow(weather: WeatherItem) {
 
 
 @Composable
-fun HumidityWindPressureRow(weather: WeatherItem) {
+fun HumidityWindPressureRow(weather: WeatherItem, isimperial: Boolean) {
     Row(modifier = Modifier
         .padding(12.dp)
         .fillMaxWidth(),
@@ -115,7 +114,7 @@ fun HumidityWindPressureRow(weather: WeatherItem) {
             Icon(painter = painterResource(id = R.drawable.wind),
                 contentDescription = "wind icon",
                 modifier = Modifier.size(20.dp))
-            Text(text = "${formatDecimals(weather.speed)} " + "mph" ,
+            Text(text = "${formatDecimals(weather.speed)} " + if(isimperial)"mph" else "m/s" ,
                 style = MaterialTheme.typography.labelLarge)
 
         }

@@ -30,19 +30,19 @@ interface WeatherDao {
     suspend fun deleteFavorite(favorite: Favorite)
 
     // Unit table
-//    @Query("SELECT * from settings_tbl")
-//    fun getUnits(): Flow<List<Unit>>
-//
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun insertUnit(unit: Unit)
-//
-//    @Update(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun updateUnit(unit: Unit)
-//
-//    @Query("DELETE from settings_tbl")
-//    suspend fun deleteAllUnits()
-//
-//    @Delete
-//    suspend fun deleteUnit(unit: Unit)
+    @Query("SELECT * from settings_tbl")
+    fun getUnits(): Flow<List<com.example.weatherforecast.models.Unit>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUnit(unit: com.example.weatherforecast.models.Unit)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateUnit(unit: com.example.weatherforecast.models.Unit)
+
+    @Query("DELETE from settings_tbl")
+    suspend fun deleteAllUnits()
+
+    @Delete
+    suspend fun deleteUnit(unit: com.example.weatherforecast.models.Unit)
 
 }
