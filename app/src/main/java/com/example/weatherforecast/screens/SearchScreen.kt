@@ -48,7 +48,7 @@ fun SearchScreen(navController: NavController = NavController(Application())) {
                 icon = Icons.Default.ArrowBack,
                 isMainScreen = false
             ) {
-                //navController.popBackStack()
+                navController.popBackStack()
             }
 
         }
@@ -100,6 +100,7 @@ fun SearchBar(
         )
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
