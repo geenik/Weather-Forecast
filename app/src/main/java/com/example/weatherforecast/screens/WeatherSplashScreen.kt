@@ -1,5 +1,6 @@
 package com.example.weatherforecast.screens
 
+import android.content.Context
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
@@ -21,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -31,7 +33,15 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun WeatherSplashScreen(navController: NavController) {
-    val defaultCity = "San Diego"
+    var defaultCity = "San Diego"
+    val sharedPrefs = LocalContext.current.getSharedPreferences(
+        "WeatherForecastPrefs",
+        Context.MODE_PRIVATE
+    )
+    val savedCity = sharedPrefs.getString("City", null)
+    if (!savedCity.isNullOrBlank()) {
+        defaultCity = savedCity
+    }
     val scale = remember {
         Animatable(0f)
     }

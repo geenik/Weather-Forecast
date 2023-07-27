@@ -1,5 +1,6 @@
 package com.example.weatherforecast.screens
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherforecast.models.Unit
@@ -20,8 +21,12 @@ class SettingsViewModel @Inject constructor(private val repository: WeatherDbRep
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getUnits().distinctUntilChanged().collect{
-                _unitList.value=it
+            try{
+                repository.getUnits().distinctUntilChanged().collect {
+                    _unitList.value = it
+                }
+            }catch (_:Exception){
+
             }
         }
     }

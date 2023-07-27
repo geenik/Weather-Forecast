@@ -64,8 +64,8 @@ fun SearchScreen(navController: NavController = NavController(Application())) {
                         .padding(16.dp)
                         .align(Alignment.CenterHorizontally)
                 ){
+                    navController.popBackStack()
                     navController.navigate(WeatherScreens.MainScreen.name+"/$it")
-                    Log.d("deb", it)
                 }
             }
         }
@@ -90,7 +90,7 @@ fun SearchBar(
     Column {
         CommonTextField(
             valueState = searchQueryState,
-            placeholder = "Seattle",
+            placeholder = "City",
             onAction = KeyboardActions {
                 if (!valid) return@KeyboardActions
                 onSearch(searchQueryState.value.trim())
